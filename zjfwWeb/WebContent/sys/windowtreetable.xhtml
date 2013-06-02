@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="../template/base.xhtml">
+		<ui:define name="pagecontent">
+			<p:layout fullPage="true">
+				<p:layoutUnit position="west" size="230" collapsible="true" gutter="1" effect="drop" resizable="true" closable="true">
+					<h:form id="treeform">
+						<zhjin:tree value="#{windowData.defaultTreeData}">
+						</zhjin:tree>
+					</h:form>
+				</p:layoutUnit>
+				<p:layoutUnit position="center" closable="false">				
+					<h:form id="tableform">
+						<zhjin:dataTable value="#{windowData.defaultTableData}">
+						</zhjin:dataTable>
+					</h:form>
+				</p:layoutUnit>
+			</p:layout>
+
+       </ui:define>
+	</ui:composition>
+</h:body> 
+</html>

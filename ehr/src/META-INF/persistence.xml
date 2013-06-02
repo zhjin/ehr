@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <persistence-unit name="em" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/emdbDS</jta-data-source>
+        <jar-file>lib/zjfwsys.jar</jar-file>
+        <jar-file>lib/oasys.jar</jar-file>
+        <jar-file>lib/ehrsys.jar</jar-file>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties> 
+        	<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+        	<property name="hibernate.hbm2ddl.auto" value="update"/> 
+        	<property name="hibernate.show_sql" value="false"/> 
+        	<property name="dbname" value="ORACLE"/>
+        </properties>    
+    </persistence-unit>
+    
+</persistence>

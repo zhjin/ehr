@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="./template/base.xhtml">
+		<ui:define name="pagecontent">
+			<h:form id="f">
+				<p:commandButton value="测试" action="#{testBean.loginClick}"	
+					>	
+				</p:commandButton>
+				
+				<p:commandButton value="ehr" action="#{ehrMenuManager.initEHRMenu}"	
+					>
+				</p:commandButton>
+				
+				<p:commandButton value="oa" action="#{oaMenuManager.initOAMenu}"	
+					>
+				</p:commandButton>
+				
+				<p:commandButton value="Test" actionListener="#{ehrTestBean.ehrTestClick}"	
+					>
+				</p:commandButton>
+				
+				<br/>
+			
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body> 
+</html>

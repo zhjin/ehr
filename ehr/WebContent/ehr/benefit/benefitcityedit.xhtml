@@ -1,0 +1,229 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="../../template/dialogtemplate.xhtml">
+		<ui:define name="title">
+			#{windowData.windowTitle}
+		</ui:define>
+		<ui:define name="dialogcontent">
+			<div style="height:3px;"/>
+			<p:fieldset legend="属性">
+				<zhjin:fieldInput
+					fieldName="company" 
+					fieldNameCN="#{windowData.defaultObjectEditData.getField('company').fieldNameCN}"
+					showType="SELECTMENU"
+					entity="#{windowData.defaultObjectEditData.editData}"
+					styleClass="e15"
+					readOnly="#{windowData.defaultObjectEditData.getField('company').runReadOnly}"
+					menuList="#{windowData.defaultObjectEditData.editMenuList}"
+					userList="#{windowData.defaultObjectEditData.selectUserTree}"
+				>
+				</zhjin:fieldInput>
+					
+				<zhjin:fieldInput
+					fieldName="area" 
+					fieldNameCN="#{windowData.defaultObjectEditData.getField('area').fieldNameCN}"
+					showType="SELECTMENU"
+					entity="#{windowData.defaultObjectEditData.editData}"
+					styleClass="e15"
+					readOnly="#{windowData.defaultObjectEditData.getField('area').runReadOnly}"
+					menuList="#{windowData.defaultObjectEditData.editMenuList}"
+					userList="#{windowData.defaultObjectEditData.selectUserTree}"
+				>
+				</zhjin:fieldInput>
+				
+				<zhjin:fieldInput
+					fieldName="accuManagerEmpId" 
+					fieldNameCN="公积金负责人"
+					showType="SELECTUSER"
+					entity="#{windowData.defaultObjectEditData.editData}"
+					styleClass="e15"
+					readOnly="false"
+					menuList="#{windowData.defaultObjectEditData.editMenuList}"
+					userList="#{windowData.defaultObjectEditData.selectUserTree}"
+					selectUserEL="ehrUtil.empSelect"
+				>
+				</zhjin:fieldInput>
+				
+				<zhjin:fieldInput
+					fieldName="benefitManagerEmpId" 
+					fieldNameCN="社保负责人"
+					showType="SELECTUSER"
+					entity="#{windowData.defaultObjectEditData.editData}"
+					styleClass="e15"
+					readOnly="false"
+					menuList="#{windowData.defaultObjectEditData.editMenuList}"
+					userList="#{windowData.defaultObjectEditData.selectUserTree}"
+					selectUserEL="ehrUtil.empSelect"
+				>
+				</zhjin:fieldInput>	
+				<zhjin:fieldInput
+					fieldName="medical1Self" 
+					fieldNameCN="医疗统筹个人"
+					showType="BIGDECIMAL"
+					entity="#{windowData.defaultObjectEditData.editData}"
+					styleClass="e15"
+					readOnly="false"
+					menuList="#{windowData.defaultObjectEditData.editMenuList}"
+					userList="#{windowData.defaultObjectEditData.selectUserTree}"
+				>
+				</zhjin:fieldInput>
+				<zhjin:fieldInput
+					fieldName="medical1Corp" 
+					fieldNameCN="医疗统筹公司"
+					showType="BIGDECIMAL"
+					entity="#{windowData.defaultObjectEditData.editData}"
+					styleClass="e15"
+					readOnly="false"
+					menuList="#{windowData.defaultObjectEditData.editMenuList}"
+					userList="#{windowData.defaultObjectEditData.selectUserTree}"
+				>
+				</zhjin:fieldInput>	
+				<zhjin:fieldInput
+					fieldName="remark" 
+					fieldNameCN="备注"
+					showType="TEXT"
+					entity="#{windowData.defaultObjectEditData.editData}"
+					styleClass="e3"
+					readOnly="false"
+					menuList="#{windowData.defaultObjectEditData.editMenuList}"
+					userList="#{windowData.defaultObjectEditData.selectUserTree}"
+				>
+			</zhjin:fieldInput>			
+			</p:fieldset>
+			<div style="height:3px;"/>
+			<div class="ui-datatable ui-widget">
+				<div class="ui-datatable-tablewrapper">
+					<table role="grid">
+					<thead>
+						<tr>
+							<th class="ui-state-default" role="columnheader" rowspan="2" style="width:200px;"><span>属性</span></th>
+							<th class="ui-state-default" role="columnheader" colspan="3"><span>个人</span></th>
+							<th class="ui-state-default" role="columnheader" colspan="3"><span>公司</span></th>
+							<th class="ui-state-default" role="columnheader" rowspan="2" style="width:90px;"><span>计算小数位</span></th>
+							<th class="ui-state-default" role="columnheader" rowspan="2" style="width:90px;"><span>小数精度类型</span></th>
+						</tr>
+						<tr>
+							<th class="ui-state-default" role="columnheader" style="width:90px;"><span>比例(%)</span></th>
+							<th class="ui-state-default" role="columnheader" style="width:90px;"><span>基数上限</span></th>
+							<th class="ui-state-default" role="columnheader" style="width:90px;"><span>基数下限</span></th>
+							<th class="ui-state-default" role="columnheader" style="width:90px;"><span>比例(%)</span></th>
+							<th class="ui-state-default" role="columnheader" style="width:90px;"><span>基数上限</span></th>
+							<th class="ui-state-default" role="columnheader" style="width:90px;"><span>基数下限</span></th>
+						</tr>
+					</thead>
+					<tfoot>
+					</tfoot>
+					<tbody class="ui-datatable-data ui-widget-content">
+						<tr class="ui-widget-content ui-datatable-empty-message">
+							<td colspan="0">公积金</td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.accumulationSelf}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.accumulationSelfMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.accumulationSelfMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.accumulationCorp}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.accumulationCorpMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.accumulationCorpMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.accumulationDecimal}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0">
+								<h:selectOneMenu value="#{windowData.defaultObjectEditData.editData.accumulationRound}"
+									style="border:0px solid #b4cce7;color:#2e6e9e;">
+									<f:selectItems value="#{windowData.defaultObjectEditData.editMenuList['accumulationRound']}"></f:selectItems>
+								</h:selectOneMenu>
+							</td>
+						</tr>
+						<tr class="ui-widget-content ui-datatable-empty-message">
+							<td colspan="0">医疗</td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.medicalSelf}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.medicalSelfMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.medicalSelfMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.medicalCorp}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.medicalCorpMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.medicalCorpMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.medicalDecimal}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0">
+								<h:selectOneMenu value="#{windowData.defaultObjectEditData.editData.medicalRound}"
+									style="border:0px solid #b4cce7;color:#2e6e9e;">
+									<f:selectItems value="#{windowData.defaultObjectEditData.editMenuList['medicalRound']}"></f:selectItems>
+								</h:selectOneMenu>
+							</td>						
+						</tr>
+						<tr class="ui-widget-content ui-datatable-empty-message">
+							<td colspan="0">养老</td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.annuitiesSelf}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.annuitiesSelfMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.annuitiesSelfMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.annuitiesCorp}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.annuitiesCorpMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.annuitiesCorpMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.annuitiesDecimal}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0">
+								<h:selectOneMenu value="#{windowData.defaultObjectEditData.editData.annuitiesRound}"
+									style="border:0px solid #b4cce7;color:#2e6e9e;">
+									<f:selectItems value="#{windowData.defaultObjectEditData.editMenuList['annuitiesRound']}"></f:selectItems>
+								</h:selectOneMenu>
+							</td>						
+						</tr>
+						<tr class="ui-widget-content ui-datatable-empty-message">
+							<td colspan="0">失业</td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.idlenessSelf}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.idlenessSelfMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.idlenessSelfMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.idlenessCorp}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.idlenessCorpMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.idlenessCorpMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.idlenessDecimal}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0">
+								<h:selectOneMenu value="#{windowData.defaultObjectEditData.editData.idlenessRound}"
+									style="border:0px solid #b4cce7;color:#2e6e9e;">
+									<f:selectItems value="#{windowData.defaultObjectEditData.editMenuList['idlenessRound']}"></f:selectItems>
+								</h:selectOneMenu>
+							</td>						
+						</tr>
+						<tr class="ui-widget-content ui-datatable-empty-message">
+							<td colspan="0">工伤</td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.compoSelf}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.compoSelfMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.compoSelfMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.compoCorp}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.compoCorpMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.compoCorpMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.compoDecimal}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0">
+								<h:selectOneMenu value="#{windowData.defaultObjectEditData.editData.compoRound}"
+									style="border:0px solid #b4cce7;color:#2e6e9e;">
+									<f:selectItems value="#{windowData.defaultObjectEditData.editMenuList['compoRound']}"></f:selectItems>
+								</h:selectOneMenu>
+							</td>						
+						</tr>
+						<tr class="ui-widget-content ui-datatable-empty-message">
+							<td colspan="0">生育</td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.babySelf}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.babySelfMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.babySelfMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.babyCorp}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.babyCorpMax}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.babyCorpMin}" style=" border:0px; text-align:right; width:80px; "/></td>
+							<td colspan="0"><p:inputText value="#{windowData.defaultObjectEditData.editData.babyDecimal}" style=" border:0px; text-align:center; width:80px; "/></td>
+							<td colspan="0">
+								<h:selectOneMenu value="#{windowData.defaultObjectEditData.editData.babyRound}"
+									style="border:0px solid #b4cce7;color:#2e6e9e;">
+									<f:selectItems value="#{windowData.defaultObjectEditData.editMenuList['babyRound']}"></f:selectItems>
+								</h:selectOneMenu>
+							</td>						
+						</tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body> 
+</html>

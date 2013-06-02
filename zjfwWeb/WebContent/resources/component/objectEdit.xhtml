@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+	xmlns:zh="http://www.zhjin.com/custom">
+    
+	<composite:interface>
+	
+		<composite:attribute name="value" required="true"/>
+	
+	</composite:interface>
+	
+	<composite:implementation>
+			<c:forEach var="field" items="#{cc.attrs.value.fieldList}">
+				<zhjin:fieldInput
+					fieldName="#{field.fieldName}" 
+					fieldNameCN="#{field.fieldNameCN}"
+					showType="#{field.showType}"
+					entity="#{cc.attrs.value.editData}"
+					styleClass="#{field.styleCSS}"
+					readOnly="#{field.runReadOnly}"
+					menuList="#{cc.attrs.value.editMenuList}"
+					userList="#{cc.attrs.value.selectUserTree}"
+					selectUserEL="#{field.selectUserEL}"
+					pattern="#{field.showFormat}"
+					valueChange="#{field.valueChangeEL}"
+					update="#{field.reRender}"
+					>
+				</zhjin:fieldInput>
+			</c:forEach>
+
+
+	</composite:implementation>
+
+</ui:composition>

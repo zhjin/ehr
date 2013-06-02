@@ -1,0 +1,117 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:zh="http://www.zhjin.com/custom">
+
+<h:body> 
+	<ui:composition template="../template/base.xhtml">
+
+		<ui:define name="title">
+			#{windowData.windowTitle}
+		</ui:define>
+		<ui:define name="pagecontent">
+			<p:tabView id="tv1" style="margin-top:2px;margin-left:0px;margin-right:0px;height:#{windowData.windowHeight - 1}px;background:#dfe8f6;">
+				<p:tab title="流程数据" titleStyle="height:24px;">
+					<h:form prependId="false" enctype="multipart/form-data">
+					<div style="position:absolute;top:30px;left:0px;right:0px;bottom:0px;overflow:auto;">				
+						<h:panelGrid columns="1" style="padding:6px;">
+							<ui:include src="${request.scheme}://${request.serverName}:${request.serverPort}/${request.contextPath}/sys/showdbpage?id=${windowData.customId}&amp;v=${windowData.customVersion}" />
+							<p:separator style="padding:0px;margin:0px;"/>
+							<zhjin:attachment id="wffile" attachmentId="#{windowData.inData.attachFileId}" 
+								label="流程附件" value="#{windowData.objMap['WFControlData'].currentAttachFile}"
+								fileType="*" fileLimit="30" readOnly="false">
+							</zhjin:attachment>
+							<p:separator style="padding:0px;margin:0px;"/>
+							<h:panelGrid columns="2">
+								<h:outputText value="审批结果:" style="white-space:nowrap;font-weight:bold;color:#2E6E9E;"/>
+								<h:panelGrid columns="3">
+								<p:selectOneButton value="#{windowData.objMap['WFControlData'].applyButtonResult}">
+									<f:selectItems value="#{windowData.objMap['WFControlData'].applyButtonItems}"></f:selectItems>
+									<p:ajax update="@form" event="change"></p:ajax>
+								</p:selectOneButton>
+								<h:outputText id="rollbackLabel" value="驳回至流程节点:" style="color:#2E6E9E;padding-buttom:4px;"
+									rendered="#{windowData.objMap['WFControlData'].applyButtonResult == 'ROLLBACK'}"/>									
+								<p:selectOneMenu id="rollbackNode" value="#{windowData.objMap['WFControlData'].backNodeId}"
+									style="width:200px;"
+									rendered="#{windowData.objMap['WFControlData'].applyButtonResult == 'ROLLBACK'}"> 
+									<f:selectItems value="#{windowData.objMap['WFControlData'].backNodeList}"></f:selectItems>
+								</p:selectOneMenu>
+								</h:panelGrid>
+								<h:outputText value="审批意见:" style="white-space:nowrap;font-weight:bold;color:#2E6E9E;"/>
+								<p:editor width="#{windowData.windowWidth - 110}"
+									value="#{windowData.objMap['WFControlData'].applyOpinion}"
+									controls="bold italic font size style color highlight bullets numbering alignleft center alignright justify undo redo rule cut copy paste pastetext outdent indent" 
+									height="170">
+								</p:editor>
+								<h:outputText/>
+								<p:commandButton value="提交审批结果">
+								</p:commandButton>
+							</h:panelGrid>
+							<p:separator id="separator1"/>
+							<div>
+								<p:contextMenu for="actorListTable" rendered="#{windowData.objMap['changeActor']}">
+									<p:menuitem value="更改审批人" actionListener="#{wfManager.changeActor}">
+									</p:menuitem>
+								</p:contextMenu>
+								<h:outputText value="审批历史:" style="font-weight:bold;color:#2E6E9E;"/>
+								<p:dataTable id="actorListTable" var="row" value="#{windowData.objMap['WFControlData'].actorHistory}"
+									selection="#{windowData.objMap['WFControlData'].changeInstanceActor}" selectionMode="single" rowKey="#{row.rowKey}">
+									<p:column headerText="节点名称">
+										<h:outputText value="#{row.nodeName}"/>
+									</p:column>
+									<p:column headerText="审批人" styleClass="columncenter">
+										<h:outputText value="#{row.actorName}"/>
+									</p:column>
+									<p:column headerText="开始审批时间" styleClass="columncenter">
+										<h:outputText value="#{row.beginTime}"/>
+									</p:column>
+									<p:column headerText="实际审批人" styleClass="columncenter">
+										<h:outputText value="#{row.realActorName}"/>
+									</p:column>
+									<p:column headerText="实际审批时间" styleClass="columncenter">
+										<h:outputText value="#{row.endTime}"/>
+									</p:column>
+									<p:column headerText="审批结果" styleClass="columncenter">
+										<h:outputText value="#{row.applyResult}"/>
+									</p:column>
+									<p:column headerText="审批意见">
+										<h:outputText value="#{row.applyRemark}" escape="false"/>
+									</p:column>
+								</p:dataTable>
+								<br/>
+								<p:commandButton value="刷新记录" actionListener="#{wfManager.refreshActor}" update="actorListTable">
+								</p:commandButton>
+								<p:dialog header="更改流程节点审批人 (流程标识#{windowData.inData.wfInstanceId})" widgetVar="actorDialog" resizable="false"
+									width="400" height="200" id="actorDialog" modal="true" rendered="#{windowData.objMap['changeActor']}">
+									
+									<h:panelGrid columns="2">
+										<h:outputText value="查询："/>
+										<p:inputText></p:inputText>
+										<h:outputText/>
+										<h:selectManyListbox style="width:310px;height:150px;">
+										</h:selectManyListbox>
+									</h:panelGrid>
+								</p:dialog>										
+							</div>
+						</h:panelGrid>
+					
+					</div>
+					</h:form>
+				</p:tab>
+				<p:tab title="流程图" titleStyle="height:24px;">
+					<img src="#{request.contextPath}/workflow/showworkflowimage?wfid=#{windowData.objMap['workflowdefid']}" />
+					<ui:repeat var="node" value="#{windowData.objMap['actNode']}">
+						<div style="position:absolute;border-radius:13px;border:2px solid red;left:${node.x}px;top:${node.y+28}px;width:${node.width-2}px;height:${node.height-2}px;"></div>
+					</ui:repeat>					
+				</p:tab>
+			</p:tabView>
+		</ui:define>
+
+	</ui:composition>
+</h:body> 
+</html>

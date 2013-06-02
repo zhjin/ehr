@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:zh="http://www.zhjin.com/custom">
+    
+	<composite:interface>
+	
+		<composite:attribute name="id"/>
+		<composite:attribute name="attachmentId"/>
+		<composite:attribute name="label"/>
+		<composite:attribute name="fileType"/>
+		<composite:attribute name="fileLimit"/>
+		<composite:attribute name="readOnly"/>
+	
+	</composite:interface>
+
+	<composite:implementation>
+		<h:panelGrid id="#{cc.attrs.id}" columns="3" columnClasses="panelGridRowTop">
+			<h:outputText value="#{cc.attrs.label}:" style="font-weight:bold;color:#2E6E9E;"/>
+			<p:selectOneMenu style="width:220px;" id="attachfile"
+				>
+				<f:selectItems value="#{sysUtil.getAttachmentFileList(cc.attrs.attachmentId)}"></f:selectItems>									
+				</p:selectOneMenu>
+			<h:panelGroup>
+			<p:commandButton value="打开" actionListener="#{sysUtil.openAttachFile}" ajax="false"
+				icon="ui-icon-document">
+				<f:attribute name="attachmentId" value="#{cc.attrs.attachmentId}" />
+			</p:commandButton>
+			<p:commandButton value="删除" actionListener="#{sysUtil.deleteAttachFile}"
+				onclick="if (confirm('确认删除当前附件?') == false) return false;"
+				update="@form"
+				icon="ui-icon-cancel">
+				<f:attribute name="attachmentId" value="#{cc.attrs.attachmentId}" />
+			</p:commandButton>
+			<p:commandButton id="uploadwffile" value="上传" icon="ui-icon-folder-open">
+			</p:commandButton>
+			<p:overlayPanel id="upwffilepanel" for="uploadwffile" hideEffect="fade">
+				<p:fileUpload mode="advanced" auto="true"
+					label="文件" sizeLimit="#{cc.attrs.fileLimit * 1000000}" 
+					invalidSizeMessage="文件大小不能超过#{cc.attrs.fileLimit}M." 
+					fileUploadListener="#{sysUtil.uploadAttachFile}"
+					update="@form">
+					<f:attribute name="attachmentId" value="#{cc.attrs.attachmentId}" />			
+				</p:fileUpload>
+			</p:overlayPanel>
+			</h:panelGroup>
+		</h:panelGrid>
+
+	</composite:implementation>
+
+</ui:composition>

@@ -1,0 +1,22 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+<h:head>
+</h:head>
+<h:body style="overflow: auto;"> 
+	<ui:composition template="./template/base.xhtml">
+		<ui:define name="pagecontent">
+			<div style="height:100%;overflow:auto;background-color:#6699CC;">
+				<h:form id="form" target="mainFrame" prependId="false">
+					<p:panelMenu id="oamenu" model="#{userSession.menuMap['menu'].menuList}" style="width:100%;">					
+					</p:panelMenu>					
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

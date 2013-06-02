@@ -1,0 +1,28 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="../template/dialogtemplate.xhtml">
+		<ui:define name="title">
+			#{windowData.inData.wfNameCN} : 流程数据显示定义
+		</ui:define>
+		<ui:define name="dialogcontent">
+			<h:inputTextarea value="#{windowData.objMap['datashow'].textContent}" 
+				style="width:924px;height:530px;">
+			</h:inputTextarea>
+		</ui:define>
+		<ui:define name="dialogcommand">
+			<p:commandButton value="确认" actionListener="#{wfManager.saveWFDataContent}"
+				icon="ui-icon-disk">
+			</p:commandButton>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

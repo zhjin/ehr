@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="../template/base.xhtml">
+		<ui:define name="title">
+			#{windowData.windowTitle}
+		</ui:define>
+		<ui:define name="pagecontent">
+			<h:form>
+				<p:fieldset legend="窗口属性">
+					<div style="float:left;width:920px;">
+					<zhjin:objectEdit value="#{windowData.objMap['WindowDefine']}">
+					</zhjin:objectEdit>
+					</div>
+				</p:fieldset>
+				<p:tabView style="margin-top:2px;margin-left:2px;margin-right:2px;height:560px;background:#dfe8f6;" styleClass="no-ui-corner">
+					<p:tab title="主表格定义">
+						<div style="float:left;width:920px;">
+							<zhjin:objectEdit value="#{windowData.objMap['MasterTable']}">
+							</zhjin:objectEdit>
+						</div>
+						<div style="float:left;width:105px;">
+							<p:commandButton value="主表格按钮定义"
+								actionListener="#{windowManager.initMasterTableCommand}">
+							</p:commandButton>
+						</div>
+					</p:tab>
+					<p:tab title="从表格定义" rendered="false">
+						<div style="float:left;width:920px;">
+							<zhjin:objectEdit value="#{windowData.objMap['DetailTable']}">
+							</zhjin:objectEdit>
+						</div>
+						<div style="float:left;width:105px;">
+							<p:commandButton value="从表格按钮定义"
+								actionListener="#{windowManager.initDetailTableCommand}">
+							</p:commandButton>
+						</div>
+					</p:tab>
+					<p:tab title="树定义">
+						<zhjin:objectEdit value="#{windowData.objMap['tree']}">
+						</zhjin:objectEdit>
+					</p:tab>
+					<p:tab title="对象定义">
+						<zhjin:objectEdit value="#{windowData.objMap['objectEditDefine']}">
+						</zhjin:objectEdit>
+					</p:tab>
+					<p:tab title="自定义页面" titleStyleClass="tab-title">
+						<h:inputTextarea value="#{windowData.objMap['CustomPageText'].textContent}"
+							style="padding:1px;width:1056px;height:524px;">
+						</h:inputTextarea>
+					</p:tab>
+				</p:tabView>
+				<p:toolbar style="margin-top:2px;"> 
+					<p:toolbarGroup align="left" style="padding-left:10px;">
+						<p:commandButton value="确定" actionListener="#{windowManager.saveWindowDefine}">
+						</p:commandButton>
+					</p:toolbarGroup>
+					<p:toolbarGroup align="right" style="padding-right:10px;">
+						<p:commandButton value="取消" actionListener="#{windowManager.cancelEditClick}" immediate="true">
+						</p:commandButton>
+					</p:toolbarGroup>
+				</p:toolbar>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body> 
+</html>

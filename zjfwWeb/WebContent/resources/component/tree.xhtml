@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:zh="http://www.zhjin.com/custom">
+    
+	<composite:interface>
+	
+		<composite:attribute name="value" required="true"/>
+	
+	</composite:interface>
+
+	<composite:implementation>
+		<zh:div style="position:absolute;left:0px;top:0px;right:0px;height:26px;overflow:none;background-color:white;border:0px solid #a6c9e2;">
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton value="新增" actionListener="#{treeManager.addTreeNode}"
+						rendered="#{!cc.attrs.value.readOnly and !windowData.readOnly}">
+						<f:attribute name="treeId" value="#{cc.attrs.value.treeName}"/>
+					</p:commandButton>
+					<p:commandButton value="删除" actionListener="#{treeManager.deleteTreeNode}" update="tid"
+						rendered="#{!cc.attrs.value.readOnly and !windowData.readOnly}">
+						<f:attribute name="treeId" value="#{cc.attrs.value.treeName}"/>
+					</p:commandButton>
+					<p:commandButton id="refreshtree" value="刷新" actionListener="#{treeManager.refreshTree}" update="tid">
+						<f:attribute name="treeId" value="#{cc.attrs.value.treeName}"/>
+					</p:commandButton>
+				</p:toolbarGroup>
+				<p:spacer></p:spacer>
+				<p:toolbarGroup align="right">
+					<p:commandButton value="展开" actionListener="#{treeManager.expanedAllTreeNode}" update="tid">
+						<f:attribute name="treeId" value="#{cc.attrs.value.treeName}"/>
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+		</zh:div>
+		<zh:div style="position:absolute;left:0px;top:27px;right:0px;bottom:0px;overflow:auto;background-color:white;border: 0px solid #a6c9e2;">		
+			<p:tree id="tid" value="#{cc.attrs.value.rootNode}" var="node" style="width:100%;border:0px;"
+				selection="#{cc.attrs.value.selectedNode}" selectionMode="single" 
+				dynamic="true" cache="false" orientation="#{cc.attrs.value.orientation}" animate="true">
+				<p:ajax event="collapse" listener="#{treeManager.onTreeNodeCollapse}" />
+				<p:ajax event="select" listener="#{treeManager.onNodeSelect}" />
+				<f:attribute name="treeId" value="#{cc.attrs.value.treeName}"/>
+				<f:attribute name="selectNodeEL" value="#{cc.attrs.value.selectNodeEL}"/>
+				<p:treeNode>
+					<h:outputText value="#{node.label}" />
+				</p:treeNode>
+			</p:tree>
+		</zh:div>
+	</composite:implementation>
+</ui:composition>

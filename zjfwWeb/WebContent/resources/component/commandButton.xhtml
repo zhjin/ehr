@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:zh="http://www.zhjin.com/custom">
+      
+	<composite:interface>
+	
+		<composite:attribute name="id" />
+		<composite:attribute name="value" />
+		<composite:attribute name="update" default="@form"/>
+		<composite:attribute name="style"/>
+		<composite:attribute name="styleClass"/>
+		<composite:attribute name="actionListener"/>
+		<composite:attribute name="action" method-signature="java.lang.String action()"/>
+		<composite:attribute name="process" default="@all"/>
+		<composite:attribute name="readonly"/>
+		<composite:attribute name="rendered"/>
+		
+	</composite:interface>
+
+	<composite:implementation>
+		
+		<p:commandButton id="#{cc.attrs.id}" value="#{cc.attrs.value}"
+			action="#{cc.attrs.action}"
+			style="#{cc.attrs.style}"
+			styleClass="#{cc.attrs.styleClass}"
+			oncomplete="handleComplete(xhr, status, args)" 
+			readonly="#{cc.attrs.readonly}" 
+			rendered="#{cc.attrs.rendered}"
+			update="#{cc.attrs.update}"
+			process="#{cc.attrs.process}">
+		</p:commandButton>
+				
+	</composite:implementation>
+     
+</html>

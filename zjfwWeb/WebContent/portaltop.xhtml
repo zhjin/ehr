@@ -1,0 +1,43 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="./template/base.xhtml">
+		<ui:define name="pagecontent">
+				<h:outputStylesheet library="css" name="top.css"></h:outputStylesheet>
+				<div style="position:absolute;top:0px;left:0px;width:191px;height:40px;background-image:url(./resources/images/top1.jpg)">
+				</div>
+				<div style="margin-left:191px;margin-right:87px;height:40px;background-image:url(./resources/images/top2.jpg)">
+				</div>
+				<div style="position:absolute;top:0px;right:0px;width:87px;height:40px;background-image:url(./resources/images/top3.jpg)">
+				</div>
+				<h:form id="form" target="leftFrame" prependId="false">
+					<p:toolbar style="height:20px;">
+						<p:toolbarGroup align="right">
+							<div style="margin-top:2px;">
+							<h:outputText value="#{userSession.user.name}" style="font-weight:bold;padding-right:10px;"/>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+					<div class="tabsJ">
+                        <ul id="menuul">        
+                        	<ui:repeat var="row" value="#{userSession.menuMap['menu'].moduleList}">
+                        		<li>
+                        			<p:commandLink action="#{sysMenuManager.moduleClick}" onclick="moduleClick(event);" ajax="false">
+                        				<f:param name="menuId" value="#{row.id}"></f:param>
+                     	          		<span>#{row.label}</span>
+                     	          	</p:commandLink>
+                        		</li>
+                        	</ui:repeat>                 
+                         </ul>						
+					</div>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+</h:body>
+</html>

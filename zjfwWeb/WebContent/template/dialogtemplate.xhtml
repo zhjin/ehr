@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="base.xhtml">
+		<ui:define name="pagecontent">
+			<h:form id="form" prependId="false" enctype="multipart/form-data">
+				<div style="position:absolute;top:0px;width:100%;height:26px;overflow:none;">			
+			        <p:toolbar style="height:20px;padding-top:3px;">
+						<p:toolbarGroup align="left" style="padding-top:2px;padding-left:10px;">
+							<h:outputText value="#{windowData.windowTitle}" style="font-weight:bold;"/>
+						</p:toolbarGroup>
+						<p:toolbarGroup align="right" style="padding-top:2px;padding-right:10px;">
+							<ui:insert name="dialogTitleInfo"></ui:insert>
+						</p:toolbarGroup>
+					</p:toolbar>
+			    </div>
+			    <div style="position:absolute;width:#{windowData.windowWidth}px;top:28px;bottom:33px;overflow-y:auto;padding-top:0px;">
+			    	<ui:insert name="dialogcontent"></ui:insert>
+			    </div>
+			    <div style="position:absolute;bottom:0px;width:100%;height:32px;overflow:none;">
+					<p:toolbar style="height:24px;padding-top:5px;">
+						<p:toolbarGroup align="left" style="padding-left:10px;">
+							<h:panelGroup binding="#{windowData.commandGroup}" id="commandgroup">
+							</h:panelGroup>
+							<ui:insert name="dialogcommand"></ui:insert>
+						</p:toolbarGroup>
+						<p:toolbarGroup align="right" style="padding-right:10px;">
+							<p:commandButton id="cancel" value="取消" actionListener="#{windowManager.cancelEditClick}"
+									rendered="#{windowData.hasCancelButton}"
+									icon="ui-icon-close">
+							</p:commandButton>
+						</p:toolbarGroup>
+					</p:toolbar>
+				</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body> 
+</html>

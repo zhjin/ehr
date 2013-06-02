@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="../../template/base.xhtml">
+		<ui:define name="pagecontent">
+			<p:layout fullPage="true">
+				<p:layoutUnit position="west" size="230" collapsible="true" gutter="1" effect="drop" resizable="true">
+					<h:form id="depf">
+						<zhjin:tree value="#{windowData.defaultTreeData}">
+						</zhjin:tree>
+					</h:form>
+				</p:layoutUnit>
+				<p:layoutUnit position="center" closable="true" collapsible="true">				
+					<h:form id="depdetailf">
+						<div style="position:absolute;left:0px;top:0px;right:0px;bottom:2px;overflow:none;border: 0px solid #a6c9e2;">
+						<p:tabView id="depproperty" style="height:100%;" dynamic="false">
+							<p:tab title="部门属性">
+								<br/>
+								<zhjin:objectEdit value="#{windowData.defaultObjectEditData}">
+								</zhjin:objectEdit>
+								<div style="clear:both;padding-left:100px;padding-top:20px;">
+									<p:commandButton value="更新"
+										rendered="#{!windowData.readOnly}"
+										actionListener="#{depManager.updateDepartment}" update="@all">
+									</p:commandButton>
+								</div>
+							</p:tab>
+							<p:tab title="岗位">
+								<zhjin:dataTable value="#{windowData.defaultTableData}">
+								</zhjin:dataTable>
+							</p:tab>
+						</p:tabView>
+						</div>
+					</h:form>
+				</p:layoutUnit>
+			</p:layout>
+
+       </ui:define>
+	</ui:composition>
+</h:body> 
+</html>

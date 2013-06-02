@@ -1,0 +1,206 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+	xmlns:zh="http://www.zhjin.com/custom">
+    
+	<composite:interface>
+	
+		<composite:attribute name="readOnly"/>
+		<composite:attribute name="fieldName"/>
+		<composite:attribute name="fieldNameCN"/>
+		<composite:attribute name="showType"/>
+		<composite:attribute name="align"/>
+		<composite:attribute name="style"/>
+		<composite:attribute name="styleClass"/>
+		<composite:attribute name="entity"/>
+		<composite:attribute name="valueChange"/>
+		<composite:attribute name="menuList"/>
+		<composite:attribute name="userList"/>
+		<composite:attribute name="selectUserEL"/>
+		<composite:attribute name="pattern"/>
+		<composite:attribute name="update"/>
+		
+	</composite:interface>
+
+	<composite:implementation>
+		<c:set var="comId" value="${cc.attrs.fieldName}"/>
+		<zh:div id="#{comId}" styleClass="div#{cc.attrs.styleClass}">
+			<label class="fieldLabel"><h:outputText value="#{cc.attrs.fieldNameCN}:"/></label>
+			<c:choose>
+				<c:when test="${not cc.attrs.readOnly and not empty cc.attrs.valueChange}">
+					<h:selectBooleanCheckbox value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'CHECKBOX'}" 
+						disabled="#{cc.attrs.readOnly}" 
+						styleClass="checkbox#{cc.attrs.styleClass}" valueChangeListener="#{sysUtil.handleValueChangeListener}">
+						<f:attribute name="valueChangeEL" value="#{cc.attrs.valueChange}"></f:attribute>
+						<f:attribute name="update" value="#{cc.attrs.update}"></f:attribute>
+						<p:ajax event="change"></p:ajax>						
+					</h:selectBooleanCheckbox>					
+				</c:when>
+				<c:otherwise>
+					<h:selectBooleanCheckbox value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'CHECKBOX'}" 
+						disabled="#{cc.attrs.readOnly}" 
+						styleClass="checkbox#{cc.attrs.styleClass}">
+					</h:selectBooleanCheckbox>				
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not cc.attrs.readOnly and not empty cc.attrs.valueChange}">
+					<p:inputText value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'TEXT' || cc.attrs.showType == 'NUMBER'}" 
+						disabled="#{cc.attrs.readOnly}" styleClass="input#{cc.attrs.styleClass}" valueChangeListener="#{sysUtil.handleValueChangeListener}"
+						>				
+						<f:attribute name="valueChangeEL" value="#{cc.attrs.valueChange}"></f:attribute>
+						<f:attribute name="update" value="#{cc.attrs.update}"></f:attribute>
+						<p:ajax event="change"></p:ajax>
+					</p:inputText>
+				</c:when>
+				<c:otherwise>
+					<p:inputText value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'TEXT' || cc.attrs.showType == 'NUMBER'}" 
+						disabled="#{cc.attrs.readOnly}" styleClass="input#{cc.attrs.styleClass}" 
+						>
+					</p:inputText>					
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not cc.attrs.readOnly and not empty cc.attrs.valueChange}">
+					<p:inputText value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'BIGDECIMAL'}" 
+						disabled="#{cc.attrs.readOnly}" styleClass="input#{cc.attrs.styleClass}" valueChangeListener="#{sysUtil.handleValueChangeListener}"
+						>				
+						<f:attribute name="valueChangeEL" value="#{cc.attrs.valueChange}"></f:attribute>
+						<f:attribute name="update" value="#{cc.attrs.update}"></f:attribute>
+						<p:ajax event="change"></p:ajax>
+					</p:inputText>
+				</c:when>
+				<c:otherwise>
+					<p:inputText value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'BIGDECIMAL'}" 
+						disabled="#{cc.attrs.readOnly}" styleClass="input#{cc.attrs.styleClass}" 
+						>
+					</p:inputText>					
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not cc.attrs.readOnly and not empty cc.attrs.valueChange}">
+					<p:calendar value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'DATE' || cc.attrs.showType == 'DATETIME'}"
+						showButtonPanel="true" styleClass="selectuser#{cc.attrs.styleClass}" 
+						pattern="#{cc.attrs.pattern}" pages="2" disabled="#{cc.attrs.readOnly}" 
+						valueChangeListener="#{sysUtil.handleValueChangeListener}">
+						<f:attribute name="valueChangeEL" value="#{cc.attrs.valueChange}"></f:attribute>
+						<f:attribute name="update" value="#{cc.attrs.update}"></f:attribute>
+						<p:ajax event="dateSelect"></p:ajax>
+					</p:calendar>					
+				</c:when>
+				<c:when test="${not cc.attrs.readOnly and empty cc.attrs.valueChange}">
+					<p:calendar value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'DATE' || cc.attrs.showType == 'DATETIME'}"
+						showButtonPanel="true" styleClass="selectuser#{cc.attrs.styleClass}" 
+						pattern="#{cc.attrs.pattern}" pages="2" disabled="#{cc.attrs.readOnly}" 
+						valueChangeListener="#{sysUtil.handleValueChangeListener}">
+					</p:calendar>					
+				</c:when>
+				<c:otherwise>
+					<p:inputText value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'DATE' || cc.attrs.showType == 'DATETIME'}" 
+						disabled="#{cc.attrs.readOnly}" styleClass="input#{cc.attrs.styleClass}" 
+						>
+						<f:convertDateTime pattern="#{cc.attrs.pattern}" timeZone="GMT+8" locale="cn"/>
+					</p:inputText>			
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${not cc.attrs.readOnly and not empty cc.attrs.valueChange}">
+					<h:selectOneMenu value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'SELECTMENU'}"
+						styleClass="selectmenu#{cc.attrs.styleClass}" disabled="#{cc.attrs.readOnly}" valueChangeListener="#{sysUtil.handleValueChangeListener}">
+						<f:selectItems value="#{cc.attrs.menuList[cc.attrs.fieldName]}"></f:selectItems>
+						<f:attribute name="valueChangeEL" value="#{cc.attrs.valueChange}"></f:attribute>
+						<f:attribute name="update" value="#{cc.attrs.update}"></f:attribute>
+						<p:ajax event="change"></p:ajax>						
+					</h:selectOneMenu>				
+				</c:when>
+				<c:when test="${not cc.attrs.readOnly and empty cc.attrs.valueChange}">
+					<h:selectOneMenu value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'SELECTMENU'}"
+						styleClass="selectmenu#{cc.attrs.styleClass}" disabled="#{cc.attrs.readOnly}" valueChangeListener="#{sysUtil.handleValueChangeListener}">
+						<f:selectItems value="#{cc.attrs.menuList[cc.attrs.fieldName]}"></f:selectItems>						
+					</h:selectOneMenu>				
+				</c:when>
+				<c:otherwise>
+					<h:selectOneMenu value="#{cc.attrs.entity[cc.attrs.fieldName]}" rendered="#{cc.attrs.showType == 'SELECTMENU'}"
+						styleClass="selectmenu#{cc.attrs.styleClass}" disabled="#{cc.attrs.readOnly}"
+						style="background:#eaf0f9;border:1px solid #b4cce7;color:#a1bdd7;">
+						<f:selectItems value="#{cc.attrs.menuList[cc.attrs.fieldName]}"></f:selectItems>
+					</h:selectOneMenu>			
+				</c:otherwise>
+			</c:choose>
+			<p:commandButton value="#{cc.attrs.fieldNameCN}"
+				actionListener="#{tableManager.largeFieldEdit}" rendered="#{cc.attrs.showType == 'LARGETEXT'}">
+				<f:attribute name="dialogId" value="#{cc.attrs.fieldName}_dlg"></f:attribute>
+				<f:attribute name="largeId" value="#{cc.attrs.entity[cc.attrs.fieldName]}"></f:attribute>
+			</p:commandButton>
+			<p:dialog header="#{cc.attrs.fieldNameCN}" widgetVar="#{cc.attrs.fieldName}_dlg" dynamic="true" modal="true" 
+				resizable="false" rendered="#{cc.attrs.showType == 'LARGETEXT'}"> 
+				<h:inputTextarea id="largevalue" rendered="#{cc.attrs.showType == 'LARGETEXT'}" 
+					value="#{windowData.objMap['largeTextEdit'].textContent}"
+					style="width:600px;height:400px;"
+					>
+				</h:inputTextarea> 
+				<br/>
+				 <p:commandButton value="确认" actionListener="#{sysUtil.saveFieldLargeText}"
+				 	rendered="#{cc.attrs.showType == 'LARGETEXT'}">
+				 	<f:attribute name="obj" value="#{cc.attrs.entity}"></f:attribute>
+				 	<f:attribute name="fieldName" value="#{cc.attrs.fieldName}"></f:attribute>
+				 	<f:attribute name="dialogId" value="#{cc.attrs.fieldName}_dlg"></f:attribute>
+				 </p:commandButton>
+			</p:dialog>
+			<c:choose>
+				<c:when test="${not cc.attrs.readOnly and not empty cc.attrs.valueChange}">
+					<p:autoComplete value="#{cc.attrs.userList[cc.attrs.fieldName]}"
+						completeMethod="#{sysUtil.userSelectComplete}"  rendered="#{cc.attrs.showType == 'SELECTUSER'}"
+						var="p" itemLabel="#{p.name}" itemValue="#{p}" forceSelection="true" styleClass="selectuser#{cc.attrs.styleClass}"
+						valueChangeListener="#{sysUtil.handleValueChangeListener}">
+						<f:converter converterId="zhjin.EuserSelectConverter"></f:converter>
+						<f:attribute name="entity" value="#{cc.attrs.entity}"></f:attribute>
+						<f:attribute name="fieldName" value="#{cc.attrs.fieldName}"></f:attribute>
+						<f:attribute name="selectUserEL" value="#{cc.attrs.selectUserEL}"></f:attribute>			
+						<p:ajax event="itemSelect" listener="#{sysUtil.handleEuserSelect}" />
+						<f:attribute name="valueChangeEL" value="#{cc.attrs.valueChange}"></f:attribute>
+						<f:attribute name="update" value="#{cc.attrs.update}"></f:attribute>
+						<p:ajax event="change"></p:ajax>								
+						<p:column>
+							#{p.loginName}
+						</p:column>
+						<p:column>
+							#{p.name}
+						</p:column>
+						<p:column>
+							#{p.depName}
+						</p:column>
+					</p:autoComplete>				
+				</c:when>
+				<c:otherwise>
+					<p:autoComplete value="#{cc.attrs.userList[cc.attrs.fieldName]}"
+						completeMethod="#{sysUtil.userSelectComplete}"  rendered="#{cc.attrs.showType == 'SELECTUSER'}"
+						var="p" itemLabel="#{p.name}" itemValue="#{p}" forceSelection="true" styleClass="selectuser#{cc.attrs.styleClass}">
+						<f:converter converterId="zhjin.EuserSelectConverter"></f:converter>
+						<f:attribute name="entity" value="#{cc.attrs.entity}"></f:attribute>
+						<f:attribute name="fieldName" value="#{cc.attrs.fieldName}"></f:attribute>
+						<f:attribute name="selectUserEL" value="#{cc.attrs.selectUserEL}"></f:attribute>			
+						<p:ajax event="itemSelect" listener="#{sysUtil.handleEuserSelect}" />							
+						<p:column>
+							#{p.loginName}
+						</p:column>
+						<p:column>
+							#{p.name}
+						</p:column>
+						<p:column>
+							#{p.depName}
+						</p:column>
+					</p:autoComplete>		
+				</c:otherwise>
+			</c:choose>
+
+		</zh:div>
+
+	</composite:implementation>
+
+</ui:composition>

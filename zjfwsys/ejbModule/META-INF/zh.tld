@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+  
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"  
+    version="2.1">  
+    <description><![CDATA[Your description here]]></description>  
+    <tlib-version>1.0</tlib-version>  
+    <short-name>zh</short-name>  
+    <uri>http://www.tomogroup.com/custom</uri> 
+	<tag>  
+		<name>selectOneMenuValueOutput</name>  
+		<tag-class>com.zhjin.faces.custom.tags.SelectOneMenuValueOutputTag</tag-class>
+		<body-content>JSP</body-content>
+ 
+		<attribute>   
+			<name>valueList</name>   
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>		 
+		</attribute> 
+	</tag>
+</taglib>

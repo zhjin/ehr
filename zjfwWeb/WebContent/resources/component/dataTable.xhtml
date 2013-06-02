@@ -1,0 +1,106 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:zh="http://www.zhjin.com/custom">
+    
+	<composite:interface>
+	
+		<composite:attribute name="value" required="true"/>
+	
+	</composite:interface>
+
+	<composite:implementation>
+		<p:toolbar id="t1">
+			<p:toolbarGroup id="st1" >
+				<zh:div id="a1" style="float:left;">
+					<p:commandButton id="new" value="新增" actionListener="#{tableManager.newDataEditClick}" 
+						rendered="#{cc.attrs.value.canNew and !windowData.readOnly}"
+						icon="ui-icon-newwin">
+						<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+					</p:commandButton>
+					<p:commandButton id="update" value="更新" 
+						actionListener="#{tableManager.updateDataEditClick}"
+						widgetVar="#{cc.attrs.value.tableId}_update"
+						rendered="#{cc.attrs.value.canUpdate and !windowData.readOnly}"
+						icon="ui-icon-disk">
+						<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+					</p:commandButton>
+					<p:commandButton id="delete" value="删除" actionListener="#{tableManager.deleteRecord}"
+						update="@form" onclick="if (confirm('确认删除所选择记录?') == false) return false;"
+						rendered="#{cc.attrs.value.canDelete and !windowData.readOnly}" 
+						icon="ui-icon-trash">
+						<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+					</p:commandButton>
+					<p:separator></p:separator>
+				</zh:div>
+				<zh:div rendered="#{cc.attrs.value.showCustomComponent}" style="float:left;">
+					<ui:include src="#{cc.attrs.value.customURL}" />
+				</zh:div>
+				<h:panelGroup id="cgroup" binding="#{cc.attrs.value.commandGroup}"
+					rendered="#{!windowData.readOnly}">
+				</h:panelGroup>
+			</p:toolbarGroup>
+			<p:toolbarGroup id="st2" align="right" rendered="#{cc.attrs.value.fastSearchEnabled}">
+				<h:outputText value="#{cc.attrs.value.fastFilterNameCN}:" style="font-weight:bold;">
+				</h:outputText>
+				<h:inputText valueChangeListener="#{tableManager.fastSearchValueChange}" style="padding:0px;margin:0px;height:14px;">
+					<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+					<p:ajax event="blur" update="@form"></p:ajax>
+				</h:inputText>
+			</p:toolbarGroup>
+		</p:toolbar>	
+		<div style="width:100%;overflow-x:scroll;overflow-y:hidden;">
+			<p:dataTable id="dt" binding="#{cc.attrs.value.dataTable}" var="row"></p:dataTable>
+		</div>
+		<p:toolbar id="t2">
+			 <p:toolbarGroup id="st3">
+			 	<p:commandButton value="数据导出" action="#{tableManager.exportExcel}" ajax="false"
+			 		rendered="#{cc.attrs.value.canExportExcel}"
+			 		icon="ui-icon-arrowthick-1-s">
+			 		<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+			 	</p:commandButton>
+			 	<p:commandButton id="filter" value="过滤" actionListener="#{tableManager.filterTableClick}" icon="ui-icon-search">
+			 		<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+			 	</p:commandButton>
+			 	<p:commandButton id="cancelfilter" value="取消过滤" actionListener="#{tableManager.cancelFilterTableClick}" update="@form"
+			 		icon="ui-icon-cancel">
+			 		<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+			 	</p:commandButton>
+			 	<p:separator></p:separator>
+			 	<p:commandButton id="firstpage" value="首页" actionListener="#{tableManager.goFirst}" update="@form"
+			 		disabled="#{cc.attrs.value.currentPage == 1}" icon="ui-icon-seek-first">
+			 		<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+			 	</p:commandButton>
+			 	<p:commandButton id="prepage" value="上一页" actionListener="#{tableManager.goPrevious}" update="@form"
+			 		disabled="#{cc.attrs.value.currentPage == 1}" icon="ui-icon-seek-prev">
+			 		<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+			 	</p:commandButton>
+			 	<p:commandButton id="refreshtable" value="刷新" actionListener="#{tableManager.refreshPage}" 
+			 		update="@form"
+			 		icon="ui-icon-refresh">
+			 		<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+			 	</p:commandButton>
+			 	<p:commandButton id="nextpage" value="下一页" actionListener="#{tableManager.goNext}" update="@form"
+			 		disabled="#{cc.attrs.value.currentPage == cc.attrs.value.maxPage}" icon="ui-icon-seek-next">
+			 		<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+			 	</p:commandButton>
+			 	<p:commandButton id="lastpage" value="末页" actionListener="#{tableManager.goLast}" update="@form"
+			 		disabled="#{cc.attrs.value.currentPage == cc.attrs.value.maxPage}" icon="ui-icon-seek-end">
+			 		<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+			 	</p:commandButton>
+			 	<p:separator></p:separator>
+			 	<h:outputText value="第  "/>
+			 	<h:inputText id="currentpage" value="#{cc.attrs.value.currentPage}" style="width:30px;text-align:center;padding:0px;margin:0px;height:14px;" 
+			 		valueChangeListener="#{tableManager.pageChange}">
+			 		<f:param name="tableId" value="#{cc.attrs.value.tableId}"></f:param>
+			 		<p:ajax event="blur" update="@form" />
+			 	</h:inputText> 
+			 	<h:outputText value=" / #{cc.attrs.value.maxPage} 页, 	记录数: #{cc.attrs.value.recordCount}"/>	 	
+			 </p:toolbarGroup>
+		</p:toolbar>		
+	</composite:implementation>
+     
+</ui:composition>

@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:zh="http://www.zhjin.com/custom">
+
+<h:body style="background-color:white;"> 
+	<ui:composition template="../template/base.xhtml">
+		<ui:define name="title">
+			#{windowData.windowTitle}
+		</ui:define>
+		<ui:define name="pagecontent">
+			<h:form prependId="false" enctype="multipart/form-data">
+				<zhjin:dataTable value="#{windowData.defaultTableData}" id="table">
+				</zhjin:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body> 
+</html>

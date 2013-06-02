@@ -1,0 +1,15 @@
+系统安装说明：
+
+1. 安装JDK7
+2. 安装JBoss AS7.1.3
+3. 安装ORACLE数据库并建立用户
+4. import数据库备份文件emanager.dmp(系统下载目录下)
+4. 配置JBoss Oracle数据库连接池，设置pool-name="emdbDS" jndi-name="java:/emdbDS"
+5. 生成ehr.war文件复制到 $JBOSS_HOME/standalone/deployments
+6. 启动jboss
+        启动参数：-b 0.0.0.0 --server-config=standalone-full.xml
+   VM参数: -Dfile.encoding=UTF-8 -Dorg.apache.el.parser.COERCE_TO_ZERO=false
+7. 启动后打开浏览器输入 http://localhost:8080/ehr/index.jsf
+8. 输入用户名和密码, 用户名和密码均为a2
+9. 点击测试按钮进入系统
+

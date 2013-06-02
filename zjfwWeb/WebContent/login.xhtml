@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body bgcolor="#336699"> 
+	<ui:composition template="./template/base.xhtml">
+		<ui:define name="pagecontent">
+		<h:form id="f">
+			<h:outputStylesheet library="css" name="common.css"></h:outputStylesheet>
+			<div id="logindiv" style="position:absolute;left:50%;top:50%;width:500px;height:200px;margin-left:-250px;margin-top:-150px;">
+			<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+			  <tr>
+			    <td> 
+			    	<table width="501px;" border="0" align="center" cellpadding="0" cellspacing="0" style="border-right:#f4f4f4 1px solid;border-left:#f4f4f4 1px solid;border-top:#f4f4f4 1px solid;border-bottom:#f4f4f4 1px solid">
+				        <tr> 
+				          <td><h:graphicImage name="index_1.jpg" style="width=501px;height=65px;" library="images"/></td>
+				        </tr>
+			        	<tr> 
+				          <td background="resources/images/index_4.jpg"><table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+				              <tr> 
+				                <td height="191">
+				                    <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+				                      <tr> 
+				                        <td height="30"><h:graphicImage name="button.gif" style="width=27;height=27;" library="images"/></td>
+				                        <td> 用户名： 
+				                          <h:inputText id="username" 
+				                          	style="width:120px;"/>
+				                         </td>
+				                      </tr>
+				                      <tr> 
+				                        <td height="30"><h:graphicImage name="button.gif" style="width=27;height=27;" library="images"/></td>
+				                        <td> 密　码： 
+				                        	<h:inputSecret id="pass"
+				                        		style="width:120px;"/>  
+										</td>
+				                      </tr>
+				                      <tr> 	
+				                        <td height="50" colspan="2" align="center"> 　　　　　　　　　　 
+				                          <p:commandButton id="login"
+				                          	icon="resources/images/button_login.gif">
+				                          </p:commandButton>
+				                        </td>
+				                      </tr>
+				                    </table>
+				                  </td>
+				              </tr>
+				            </table>
+				        </td>
+			        </tr>
+			      </table>
+			     </td>
+			  </tr>
+			</table>
+			</div>
+		</h:form>
+	</ui:define>
+	</ui:composition>
+	</h:body>
+</html>
+	

@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="./template/base.xhtml">
+		<ui:define name="pagecontent">
+			<h:outputScript target="head" library="primefaces" name="/jquery/jquery-plugins.js"></h:outputScript>
+			<div style="height:100%;overflow:auto;background-color:#6699CC;">
+				<h:form id="form" target="mainFrame" prependId="false" enctype="multipart/form-data">
+					<p:panelMenu model="#{userSession.menuMap['SYSTEM'].menuList}" style="width:100%;">					
+					</p:panelMenu>					
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

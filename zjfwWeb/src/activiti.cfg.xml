@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:jee="http://www.springframework.org/schema/jee"  
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+   http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">         
+
+   <bean id="transactionManager" class="org.springframework.jndi.JndiObjectFactoryBean">
+      <property name="jndiName" value="java:jboss/TransactionManager"></property>
+      <property name="resourceRef" value="true" />
+   </bean>
+   
+  <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration">  
+    <property name="dataSourceJndiName" value="java:/OracleDS" />
+    <property name="transactionManager" ref="transactionManager" />
+    <property name="transactionsExternallyManaged" value="true" />
+    <property name="databaseSchemaUpdate" value="true" />
+    <property name="databaseType" value="oracle" />
+    <property name="jobExecutorActivate" value="false" />  
+  </bean>
+
+</beans>

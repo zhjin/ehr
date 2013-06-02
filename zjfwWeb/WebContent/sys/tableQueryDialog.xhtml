@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+<body>
+
+<ui:composition template="../template/dialogtemplate.xhtml">
+		<ui:define name="dialogcontent">
+			<div style="position:absolute;top:0px;left:1px;width:120px;bottom:0px;">
+				<h:selectOneListbox id="columnSelectList" value="#{windowData.defaultTableData.querySelectedColumn}" size="18" 
+					style="width:120px;padding:0px;" onclick="addFilterColumn.click();">
+					<f:selectItems value="#{windowData.defaultTableData.queryColumnList}"/>
+				</h:selectOneListbox>	
+			</div>
+			<div style="position:absolute;left:124px;top:2px;bottom:0px;right:2px;">
+					<p:dataTable id="filterArea" value="#{windowData.defaultTableData.queryList}" var="row"
+						cellpadding="0" cellspacing="0" border="1" bgcolor="#006699" width="100%" emptyMessage=""
+						>
+						<p:column headerText = "删除">
+							<h:selectBooleanCheckbox value="#{row.deleteBit}"
+								onclick="deleteFilterColumn.click();">
+							</h:selectBooleanCheckbox>
+						</p:column>
+						<p:column headerText="条件" style="width:50px;">
+							<h:selectOneMenu value="#{row.condition}" style="width:50px;">
+								<f:selectItems value="#{windowData.defaultTableData.queryConditionList}"/>
+							</h:selectOneMenu>
+						</p:column>
+						<p:column headerText="(" style="width:10px;">
+							<h:selectBooleanCheckbox value="#{row.leftParentheses}" style="width:20px;">
+							</h:selectBooleanCheckbox>
+						</p:column>
+						<p:column headerText="字段名称" style="text-decoration:none;width:110px;">
+							<h:outputText value="#{row.fieldNameCN}"
+								styleClass="tablelabelleft">
+							</h:outputText>
+						</p:column>
+						<p:column headerText="运算符" style="width:75px;">
+							<h:selectOneMenu value="#{row.operator}" style="width:75px;">
+								<f:selectItems value="#{windowData.defaultTableData.queryOperatorList}"/>
+							</h:selectOneMenu>
+						</p:column>
+						<p:column headerText="值" style="width:100px;">
+							<h:panelGroup>
+								<h:selectOneMenu rendered="#{row.selectOneChoice}" 
+									value="#{row.value}"
+									>
+									<f:selectItems value="#{row.dropList}" />
+								</h:selectOneMenu>						
+								<h:inputText rendered="#{row.text}" value="#{row.value}" 
+									style="padding-left:0px;">
+								</h:inputText>
+								<h:inputText rendered="#{row.number}" value="#{row.value}">
+								</h:inputText>
+								<span style="display: inline-block;;width:98%;">
+									<p:calendar 
+										rendered="#{row.date}" 
+										value="#{row.value}"
+										styleClass="tablecellleft" pattern="#{row.pattern}">
+									</p:calendar>
+								</span>
+								<h:selectBooleanCheckbox rendered="#{row.checkBox}" value="#{row.value}" 
+									style="font-size:12px;width:40px;">
+								</h:selectBooleanCheckbox>
+							</h:panelGroup>
+						</p:column>
+						<p:column headerText=")" style="width:10px;">
+							<h:selectBooleanCheckbox value="#{row.rightParentheses}" style="width:20px;">
+							</h:selectBooleanCheckbox>
+						</p:column>
+					</p:dataTable>
+			</div>
+	</ui:define>
+	<ui:define name="dialogcommand">
+		<p:commandButton value="确定"
+			actionListener="#{tableQueryDialog.okActionListener}"
+			icon="ui-icon-check"
+			>
+		</p:commandButton>
+		<div style="display:none;visibility:hidden;">
+			<p:commandButton id="addFilterColumn" value="增加"
+				actionListener="#{tableQueryDialog.addColumn}" widgetVar="addFilterColumn">
+			</p:commandButton>
+			<p:commandButton id="deleteFilterColumn" value="删除" widgetVar="deleteFilterColumn"
+				actionListener="#{tableQueryDialog.deleteColumn}">
+			</p:commandButton>
+		</div>		
+	</ui:define>
+</ui:composition>
+
+</body>
+</html>

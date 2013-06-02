@@ -1,0 +1,23 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:zhjin="http://java.sun.com/jsf/composite/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:zh="http://www.zhjin.com/custom"> 
+
+<h:body> 
+	<ui:composition template="../template/dialogtemplate.xhtml">
+		<ui:define name="title">
+			#{windowData.windowTitle}
+		</ui:define>
+		<ui:define name="dialogcontent">
+			<div style="height:3px;"/>
+			<zhjin:objectEdit value="#{windowData.objMap['editobj']}">
+			</zhjin:objectEdit>
+		</ui:define>
+	</ui:composition>
+</h:body> 
+</html>
